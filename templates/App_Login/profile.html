@@ -1,0 +1,56 @@
+{% extends "Base/base.html" %}
+
+{% block title %}
+Profile Page
+{% endblock title %}
+
+{% block content %}
+<header class="bg-dark py-5">
+    <div class="container px-3 px-lg-3 my-4">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Profile Page</h1>
+        </div>
+    </div>
+</header>
+
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    {{user.username}} | {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endfor %}
+{% endif %}
+
+
+<div class="card mb-3 card text-bg-warning" >
+    <div class="row g-0">
+        <div class="col-md-4">
+            {% if user.user_profile %}
+            <img style="width: 200px;" src="{{user.user_profile.profile_pic.url}}"
+                alt="No Pic Found"><br><br>
+            <a href="{% url 'update_profile_pic-url' %}" class="btn btn-danger">Change Profile Pic</a><br>
+
+            {% else %}
+            <img style="width: 200px;" src="/media/Uploaded/Login_App/images.jpeg" alt=""><br><br>
+            <a href="{% url 'addProfile_pic-url' %}" class="btn btn-danger">Add Profile Pic</a><br><br>
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h3 class="card-title"> Username = {{user.username}}</h2>
+                <h3 class="card-title"> firstname = {{user.first_name}}</h2>
+                <h3 class="card-title"> lastname = {{user.last_name}}</h2>
+                <h3 class="card-title"> email = {{user.email}}</h2>
+                <!-- <h2> password = {{user.password}}</h2> -->
+
+                <a href="{% url 'profileupdate-url' %}" class="btn btn-primary">Update Profile Here</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,38 @@
+{% extends "Base/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+Profile update
+{% endblock title %}
+
+{% block content %}
+<header class="bg-dark py-5">
+    <div class="container px-3 px-lg-3 my-4">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">Profile Update</h1>
+        </div>
+    </div>
+</header>
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endfor %}
+{% endif %}
+<br>
+<div class="p-5">
+    <form method="POST">
+        {% csrf_token %}
+        {{form|crispy}}
+    <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    
+</div>
+
+
+{% endblock content %}

@@ -1,0 +1,44 @@
+{% extends "Base/base.html" %}
+{% load custom_tags %}
+
+{% block title %}
+HOME | Blogs | Bloglist
+{% endblock title %}
+
+{% block content %}
+BlogList
+
+
+<hr>
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+  {{ message }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+{% endfor %}
+{% endif %}
+
+
+<div class="card mb-3">
+  {% for i in blogs %}
+  <div class="row g-0 p-3">
+    <div class="col-md-4">
+      publish date: {{i.publish_date}}
+      <img src="{{i.blog_image.url}}" style="border: 1px solid black;" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title"> <b>{{i.blog_title}}</b></h5>
+        <p class="card-text">{{i.blog_content|range_filter}} <a href="{% url 'blogdetails' i.slug %}">see more</a></p>
+        <h6> <i> Posted by: <a href="#">@{{i.author}}</a></i></h6>
+      </div>
+    </div>
+  </div>
+  <hr>
+  {% endfor %}
+</div>
+
+{% endblock content %}

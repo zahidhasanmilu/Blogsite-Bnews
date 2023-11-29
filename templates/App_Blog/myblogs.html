@@ -1,0 +1,51 @@
+{% extends "Base/base.html" %}
+{% block title %}
+{{user}} Blogs
+{% endblock title %}
+
+
+
+{% block content %}
+<header class="bg-dark py-5">
+    <div class="container px-3 px-lg-4 my-4">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">{{user}} Blogs Page</h1>
+
+        </div>
+    </div>
+</header>
+
+
+{% if messages %}
+{% for message in messages %}
+<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    {{ message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{% endfor %}
+{% endif %}
+
+{% for i in user.post_author.all %}
+<div class="card mb-3">
+<div class="row g-0 p-3">
+    <div class="col-md-4">
+        publish date: {{i.publish_date}}
+        <img src="{{i.blog_image.url}}" style="border: 1px solid black;" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+        <div class="card-body">
+            <h5 class="card-title"> <b>{{i.blog_title}}</b></h5>
+            <p class="card-text">{{i.blog_content|truncatechars:300 }} <a href="{% url 'blogdetails' i.slug %}">see more</a></p>
+            <h6> <i> Posted by: <a href="#">@{{i.author}}</a></i></h6>
+            <h4><a class="btn btn-primary" href="{% url 'updateblog' i.pk %}">Edit Blog</a></h4>
+          </div>
+    </div>
+</div>
+</div>
+<hr>
+{% endfor %}
+
+
+{% endblock content %}
