@@ -35,11 +35,11 @@ Create Blog
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="mb-3">
-        <label>Email address</label>
+        <label>Title</label>
         <input type="text" class="form-control" name="blog_title" id="exampleInputEmail1" aria-describedby="emailHelp">
     </div>
     <div class="mb-3">
-        <label>blog_content</label>
+        <label>Content</label>
         <textarea name="blog_content" class="form-control" id="" cols="30" rows="10"></textarea>
     </div>
     <div class="mb-3">
