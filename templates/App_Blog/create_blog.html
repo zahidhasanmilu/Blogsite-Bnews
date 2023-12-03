@@ -26,13 +26,13 @@ Create Blog
 {% endif %}
 <br>
 
-<!-- <form method="POST" enctype="multipart/form-data">
+<form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{form|crispy}}
     <button type="submit" class="btn btn-primary">Create Blog</button>
-</form> -->
+</form>
 
-<form method="POST" enctype="multipart/form-data">
+<!-- <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="mb-3">
         <label>Title</label>
@@ -48,6 +48,6 @@ Create Blog
     </div>
 
     <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+</form> -->
 
 {% endblock content %}

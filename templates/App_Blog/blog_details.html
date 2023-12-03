@@ -10,6 +10,7 @@ Blog Details
     <div class="col-lg-6">
         <h3><b>{{blog_obj.blog_title}}</b></h3>
         <h4><a href="#">@{{blog_obj.author}}</a></h4>
+        <h6><i>Catagory : <a href="#">{{blog_obj.catagori_name}}</a></i></h6>
         <h6><i>publish date: {{blog_obj.publish_date}}</i></h6>
         <h6><i>updated at: {{blog_obj.updated_at}}</i></h6>
     </div>
@@ -20,11 +21,28 @@ Blog Details
     <p align="justify">{{blog_obj.blog_content|linebreaks}}</p>
 </div>
 <hr>
+
+<div class="row">
+    {% for i in cat_blog %}
+    <div class="card" style="width: 18rem;">
+        <img src="{{i.blog_image.url}}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+                content.<a href="{% url 'blogdetails' i.slug %}" >  see more.</a> </p>
+                <p><i>catagory: <a href="">{{i.catagori_name}}</a></i></p>
+                
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+<hr>
 <div class="row pb-5">
     <div class="col-lg-6">
         <h3><b>COMMENTS</b></h3>
         <hr>
-        {% for j in blog_obj.blog_comment.all %}     
+        {% for j in blog_obj.blog_comment.all %}
         <p><a href="#">{{j.user}}</a>: {{j.comment}} <br> comment date: {{j.comment_date}}</p>
         {% endfor %}
 

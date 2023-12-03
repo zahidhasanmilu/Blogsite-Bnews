@@ -33,6 +33,7 @@ BlogList
       <div class="card-body">
         <h5 class="card-title"> <b>{{i.blog_title}}</b></h5>
         <p class="card-text">{{i.blog_content|range_filter}} <a href="{% url 'blogdetails' i.slug %}">see more</a></p>
+        <h6> <i> Catagory : <a href="#">{{i.catagori_name}}</a></i></h6>
         <h6> <i> Posted by: <a href="#">@{{i.author}}</a></i></h6>
       </div>
     </div>
