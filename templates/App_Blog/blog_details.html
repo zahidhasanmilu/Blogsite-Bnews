@@ -6,13 +6,36 @@ Blog Details
 {% endblock title %}
 
 {% block content %}
+{% if messages %}
+<div class="container mt-3">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
 <div class="row">
     <div class="col-lg-6">
         <h3><b>{{blog_obj.blog_title}}</b></h3>
         <h4><a href="#">@{{blog_obj.author}}</a></h4>
         <h6><i>Catagory : <a href="#">{{blog_obj.catagori_name}}</a></i></h6>
+        {% if blog_obj.tags.all.count > 0 %}   
+        <h6><i>Tags : {% for tag in blog_obj.tags.all %}<a href="#"> {{tag.name}} ,</a>{% endfor %}</i></h6>
+        {% else %}
+        <h6><i>Tags : <a href="#">None</a></i></h6>
+        {% endif %}
         <h6><i>publish date: {{blog_obj.publish_date}}</i></h6>
         <h6><i>updated at: {{blog_obj.updated_at}}</i></h6>
+
+
+        {% if current_user %}
+        <h4><a class="btn btn-primary" href="{% url 'updateblog' blog_obj.pk %}">Edit Blog</a></h4>
+        {% else %}
+        {% endif %}
+
+        
     </div>
     <div class="col-lg-6">
         <img src="{{blog_obj.blog_image.url}}" width="100%" alt="">

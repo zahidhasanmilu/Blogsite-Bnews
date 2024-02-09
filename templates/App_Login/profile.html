@@ -15,42 +15,77 @@ Profile Page
 
 
 {% if messages %}
-{% for message in messages %}
-<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-    {{user.username}} | {{ message }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-    </button>
+<div class="container mt-3">
+    {% for message in messages %}
+    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
 </div>
-{% endfor %}
 {% endif %}
 
 
-<div class="card mb-3 card text-bg-warning" >
+
+<div class="card mb-3 card text-bg-warning">
     <div class="row g-0">
         <div class="col-md-4">
             {% if user.user_profile %}
-            <img style="width: 200px;" src="{{user.user_profile.profile_pic.url}}"
-                alt="No Pic Found"><br><br>
+            <img style="width: 50%;" src="{{user.user_profile.profile_pic.url}}" alt="No Pic Found"><br><br>
             <a href="{% url 'update_profile_pic-url' %}" class="btn btn-danger">Change Profile Pic</a><br>
 
             {% else %}
             <img style="width: 200px;" src="/media/Uploaded/Login_App/images.jpeg" alt=""><br><br>
-            <a href="{% url 'addProfile_pic-url' %}" class="btn btn-danger">Add Profile Pic</a><br><br>
+            <a href="{% url 'addProfile_pic-url' %}" class="btn btn-danger m-2">Add Profile Pic</a><br><br>
             {% endif %}
+            <br>
+            <a href="{% url 'createblog' %}" class="btn btn-success m-2">Create a new blog</a><br>
+            <br>
         </div>
         <div class="col-md-8">
             <div class="card-body">
                 <h3 class="card-title"> Username = {{user.username}}</h2>
-                <h3 class="card-title"> firstname = {{user.first_name}}</h2>
-                <h3 class="card-title"> lastname = {{user.last_name}}</h2>
-                <h3 class="card-title"> email = {{user.email}}</h2>
-                <!-- <h2> password = {{user.password}}</h2> -->
+                    <h3 class="card-title"> firstname = {{user.first_name}}</h2>
+                        <h3 class="card-title"> lastname = {{user.last_name}}</h2>
+                            <h3 class="card-title"> email = {{user.email}}</h2>
+                                <!-- <h2> password = {{user.password}}</h2> -->
 
-                <a href="{% url 'profileupdate-url' %}" class="btn btn-primary">Update Profile Here</a>
+                                <a href="{% url 'profileupdate-url' %}" class="btn btn-primary">Update Profile Here</a>
             </div>
         </div>
     </div>
+
+    {% for i in user.post_author.all %}
+    <div class="card mb-3">
+        <div class="row g-0 p-3">
+            <div class="col-md-4">
+                publish date: {{i.publish_date}}
+                <img src="{{i.blog_image.url}}" style="border: 1px solid black;" class="img-fluid rounded-start"
+                    alt="...">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title"> <b>{{i.blog_title}}</b></h5>
+                    <p class="card-text">{{i.blog_content|truncatechars:300 }} <a
+                            href="{% url 'blogdetails' i.slug %}">see more</a></p>
+                    <h6> <i> Posted by: <a href="#">@{{i.author}}</a></i></h6>
+
+                    {% if i.tags.all.count > 0 %}
+                    <h6><i>Tags : {% for tag in i.tags.all %}<a href="#"> {{tag.name}} ,</a>{% endfor %}</i></h6>
+                    {% else %}
+                    <h6><i>Tags : <a href="#">None</a></i></h6>
+                    {% endif %}
+
+                    <h4><a class="btn btn-primary" href="{% url 'updateblog' i.pk %}">Edit Blog</a></h4>
+                    <h4><a class="btn btn-danger" href="{% url 'delete_blog' i.slug %}">Delete Blog</a></h4>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr>
+    {% endfor %}
 </div>
 
 {% endblock content %}

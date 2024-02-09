@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Blog, Comment, Likes, Catagory
+from .models import Blog, Comment, Likes, Catagory,Tag
 
 # Register your models here.
 
@@ -17,6 +17,7 @@ class LikesAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Blog, BlogAdmin)
+admin.site.register(Tag)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Likes, LikesAdmin)
 admin.site.register(Catagory)

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, HttpResponseRedirect
 from django.contrib.auth.models import User
 
 from .models import User_Profile
-from .forms import ProfilePicForm
+from .forms import ProfilePicForm,UserChangeForms
 
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.forms import UserChangeForm
@@ -69,9 +69,9 @@ def profile(request):
 @login_required
 def profileUpdate(request):
     current_user = request.user
-    form = UserChangeForm(instance=current_user)
+    form = UserChangeForms(instance=current_user)
     if request.method == 'POST':
-        form = UserChangeForm(request.POST, instance=current_user)
+        form = UserChangeForms(request.POST, instance=current_user)
         if form.is_valid():
             form.save()
             # form = UserChangeForm(request.POST, instance=current_user)

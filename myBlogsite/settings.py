@@ -43,9 +43,11 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'django_cleanup.apps.CleanupConfig',
+    'rest_framework',
 
     'App_Blog',
     'App_Login',
+    'apiApp',
 
 ]
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
@@ -75,6 +77,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'App_Blog.context_processors.get_all_categories',
+                'App_Blog.context_processors.get_all_tags',
             ],
         },
     },
